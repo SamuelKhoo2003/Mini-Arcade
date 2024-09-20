@@ -17,6 +17,43 @@ def play(word):
     print(displayHangman(tries)) # this function is what displays the hang man
     print(word_completion)
     print("\n")
+    while not guessed and tries > 0:
+        guess = input("Please guess a letter or a word: ").upper()
+        if len(guess) == 1 and guess.isalpha:
+            if guess in guessed_letters:
+                print("You already guessed the letter", guess)
+            elif guess not in word:
+                guessed_letters.append(guess)
+                tries -= 1
+                print(guess, "is not in the word.")
+            else:
+                guessed_letters.append(guess)
+                print(guess, "is in the word!")
+                word_as_list = list(word_completion)
+                for i, char in enumerate(word):
+                    if char == guess:
+                        word_as_list[i] = guess
+                word_completion = "".join(word_as_list)
+                if "_" not in word_completion:
+                    guessed = True
+
+        elif len(guess) == len(word) and guess.isalpha:
+            if guess in guessed_words:
+                print("You have already guessed the word", guess)
+            elif guess != word:
+                guessed_words.append(guess)
+                tries -= 1
+                print(guess, "is not the word.")
+            else:
+                guess = True
+                word_completion = word
+        else:
+            print("Not a valid guess.")
+
+        print(displayHangman(tries)) # this function is what displays the hang man
+        print(word_completion)
+        print("\n")
+
     if guessed:
         print("You guessed the word! You win!")
     else:
