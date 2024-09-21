@@ -17,9 +17,9 @@ right = (1,0)
 colors = {
     "black": (0, 0, 0),
     "snake": (17, 24, 47),
-    "food": (223, 163, 49),
-    "gridLight": (93,216, 228),
-    "gridDark": (84,194,205),
+    "food": (204, 0, 0),
+    "gridLight": (0, 255, 128, 0.5),
+    "gridDark": (0, 204, 102, 0.5),
 }
 
 class Snake():
