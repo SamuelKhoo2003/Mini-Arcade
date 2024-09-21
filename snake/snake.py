@@ -14,13 +14,20 @@ down = (0,1)
 left = (-1,0)
 right = (1,0)
 
+colors = {
+    "black": (0, 0, 0),
+    "snake": (17, 24, 47),
+    "food": (223, 163, 49),
+    "gridLight": (93,216, 228),
+    "gridDark": (84,194,205),
+}
 
 class Snake():
     def __init__(self):
         self.length = 1
         self.positions = [((screenWidth/2), (screenHeight/2))]
         self.direction = random.choice([up, down, left, right])
-        self.color = (17, 24, 47)
+        self.color = colors["black"]
         self.score = 0
 
     def get_head_position(self):
@@ -53,7 +60,7 @@ class Snake():
         for p in self.positions:
             r = pygame.Rect((p[0], p[1]), (gridSize,gridSize))
             pygame.draw.rect(surface, self.color, r)
-            pygame.draw.rect(surface, (93,216, 228), r, 1)
+            pygame.draw.rect(surface, colors["gridLight"], r, 1)
 
     def handle_keys(self):
         for event in pygame.event.get():
@@ -73,7 +80,7 @@ class Snake():
 class Food():
     def __init__(self):
         self.position = (0,0)
-        self.color = (223, 163, 49)
+        self.color = colors["food"]
         self.randomize_position()
 
     def randomize_position(self):
@@ -82,17 +89,17 @@ class Food():
     def draw(self, surface):
         r = pygame.Rect((self.position[0], self.position[1]), (gridSize, gridSize))
         pygame.draw.rect(surface, self.color, r)
-        pygame.draw.rect(surface, (93, 216, 228), r, 1)
+        pygame.draw.rect(surface, colors["gridLight"], r, 1)
 
 def drawGrid(surface):
     for y in range(0, int(gridHeight)):
         for x in range(0, int(gridWidth)):
             if (x+y)%2 == 0:
                 r = pygame.Rect((x*gridSize, y*gridSize), (gridSize,gridSize))
-                pygame.draw.rect(surface,(93,216,228), r)
+                pygame.draw.rect(surface, colors["gridLight"], r)
             else:
                 rr = pygame.Rect((x*gridSize, y*gridSize), (gridSize,gridSize))
-                pygame.draw.rect(surface, (84,194,205), rr)
+                pygame.draw.rect(surface, colors["gridDark"], rr)
 
 def main():
     pygame.init()
@@ -123,8 +130,8 @@ def main():
         food.draw(surface)
         screen.blit(surface, (0,0))
         highScore = max(snake.score, highScore)
-        scoreText = myfont.render("Score {0}".format(snake.score), 1, (0,0,0)) # the 1 is for antialias boolean
-        highScoreText = myfont.render(f"High Score {highScore}" , 1,  (0, 0, 0))
+        scoreText = myfont.render("Score {0}".format(snake.score), 1, colors["black"]) # the 1 is for antialias boolean
+        highScoreText = myfont.render(f"High Score {highScore}" , 1, colors["black"])
         screen.blit(scoreText, (5,10))
         screen.blit(highScoreText, (5, 30))
         pygame.display.update()
