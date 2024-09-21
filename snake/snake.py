@@ -2,14 +2,6 @@ import pygame
 import sys
 import random
 
-screenWidth = 480
-screenHeight = 480
-gridSize = 20
-gridWidth = screenWidth/gridSize
-gridHeight = screenHeight/gridSize
-up, down = (0, -1), (0, 1)
-left, right = (-1, 0), (1, 0)
-
 class Snake():
     def __init__(self):
         self.length = 1
@@ -87,7 +79,17 @@ def drawGrid(surface):
                 pygame.draw.rect(surface, (93, 216, 228), r)
             else:
                 rr = pygame.Rect((x*gridSize, y*gridSize), (gridSize, gridSize))
-                pygame.draw.rect(surface, (93, 216, 228), rr)
+                pygame.draw.rect(surface, (84, 194, 205), rr)
+
+screenWidth = 480
+screenHeight = 480
+gridSize = 20
+gridWidth = screenWidth/gridSize
+gridHeight = screenHeight/gridSize
+up = (0, -1)
+down = (0, 1)
+left = (-1, 0)
+right = (1, 0)
 
 def main():
     pygame.init()
@@ -119,7 +121,6 @@ def main():
         text = scoreFont.render("Score {0}".format(snake.score), 1, (0, 0, 0))
         screen.blit(text, (5, 10))
         pygame.display.update()
-
 if __name__ == "__main__":
     main()
 
