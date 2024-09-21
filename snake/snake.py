@@ -19,7 +19,7 @@ class Snake():
         self.score = 0
 
     def get_head_position(self):
-        return self.position[0]
+        return self.positions[0]
 
     def turn(self, point):
         if self.length > 1 and (point[0]*-1, point[1]*-1) == self.direction:
@@ -31,7 +31,7 @@ class Snake():
         curr = self.get_head_position()
         x, y = self.direction
         new = (((curr[0]+(x*gridSize))%screenWidth), (curr[1]+(y*gridSize)%screenHeight))
-        if len(self.position) > 2 and new in self.positions[2:]:
+        if len(self.positions) > 2 and new in self.positions[2:]:
             self.reset() # if new is already in self.position it means its hit its tail/somepart of itself
         else:
             self.positions.insert(0, new)
@@ -44,19 +44,25 @@ class Snake():
         self.direction = random.choice([up, down, left, right])
         self.score = 0
 
+    def draw(self, surface):
+        for p in self.positions:
+            r = pygame.Rect((p[0], p[1]), (gridSize, gridSize))
+            pygame.draw.rect(surface, self.color, r)
+            pygame.draw.rect(surface, (93, 216, 228), r, 1)
+
     def handle_keys(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.KEY_UP:
+                if event.key == pygame.K_UP:
                     self.turn(up)
-                elif event.key == pygame.KEY_DOWN:
+                elif event.key == pygame.K_DOWN:
                     self.turn(down)
-                elif event.key == pygame.KEY_LEFT:
+                elif event.key == pygame.K_LEFT:
                     self.turn(left)
-                elif event.key == pygame.KEY_RIGHT:
+                elif event.key == pygame.K_RIGHT:
                     self.turn(right)
 
 class Food():
@@ -101,7 +107,7 @@ def main():
         snake.handle_keys()
         drawGrid(surface)
         snake.move()
-        if snake.get_head_position() == food.positions:
+        if snake.get_head_position() == food.position:
             snake.length += 1
             snake.score += 1
             food.randomisePosition()
@@ -114,3 +120,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
