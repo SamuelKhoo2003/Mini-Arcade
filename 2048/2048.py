@@ -101,7 +101,7 @@ class Game(tk.Frame):
         new_matrix = [[0] * gridCount for _ in range(gridCount)]
         for i in range(gridCount):
             for j in range(gridCount):
-                self.matrix[i][j] = new_matrix[j][i]
+                new_matrix[i][j] = self.matrix[j][i]
         self.matrix = new_matrix
 
 
@@ -114,6 +114,7 @@ class Game(tk.Frame):
             col = random.randint(0, 3)
         self.matrix[row][col]  = random.choice([2, 4])
 
+    # Update the GUI to match
     def update_GUI(self):
         for i in range(gridCount):
             for j in range(gridCount):
