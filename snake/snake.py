@@ -2,8 +2,8 @@ import pygame
 import sys
 import random
 
-screenWidth = 400
-screenHeight = 400
+screenWidth = 480
+screenHeight = 480
 gridSize = 20
 gridWidth = screenWidth/gridSize
 gridHeight = screenHeight/gridSize
@@ -99,6 +99,8 @@ def main():
 
     scoreFont = pygame.font.SysFont("monospace", 16)
 
+    drawGrid(surface)
+
     snake = Snake()
     food = Food()
 
@@ -114,7 +116,7 @@ def main():
         snake.draw(surface)
         food.draw(surface)
         screen.blit(surface, (0, 0))
-        text = scoreFont.render("Score {0}". format(snake.score), 1, (0, 0, 0))
+        text = scoreFont.render("Score {0}".format(snake.score), 1, (0, 0, 0))
         screen.blit(text, (5, 10))
         pygame.display.update()
 
